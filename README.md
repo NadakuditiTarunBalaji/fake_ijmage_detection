@@ -1,1 +1,1 @@
-"# fake_ijmage_detection" 
+"# fake_image_detection" 

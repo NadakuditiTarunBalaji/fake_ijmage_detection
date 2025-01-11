@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fake Image Detection</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+
+    <div class="container">
+        <h1>Fake Image Detection</h1>
+        <form action="/predict" method="post" enctype="multipart/form-data">
+            <input type="file" name="file" id="image" accept="image/*" required>
+            <button type="submit">Predict</button>
+        </form>
+
+        {% if prediction %}
+        <div class="result {% if prediction == 'Real' %}real{% else %}fake{% endif %}">
+            <img src="{{ url_for('static', filename='uploads/' + filename) }}" alt="Uploaded Image">
+            <p>Prediction: 
+                <span style="font-weight: bold; color: {% if prediction == 'Real' %}green{% else %}red{% endif %};">
+                    {{ prediction }}
+                </span>
+            </p>
+            <p>Confidence: <strong>{{ confidence }}%</strong></p>
+        </div>
+        {% endif %}
+
+        {% if error %}
+        <div class="error">
+            <p>{{ error }}</p>
+        </div>
+        {% endif %}
+    </div>
+
+</body>
+</html>
